@@ -1,0 +1,2022 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pay & Split – Simplifiez les dépenses en groupe</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --sky-50: #f0f9ff;
+        --sky-100: #e0f2fe;
+        --sky-200: #bae6fd;
+        --sky-300: #7dd3fc;
+        --sky-400: #38bdf8;
+        --sky-500: #0ea5e9;
+        --sky-600: #0284c7;
+        --sky-700: #0369a1;
+        --neutral-50: #fafafa;
+        --neutral-100: #f5f5f5;
+        --neutral-200: #e5e5e5;
+        --neutral-300: #d4d4d4;
+        --neutral-400: #a3a3a3;
+        --neutral-500: #737373;
+        --neutral-600: #525252;
+        --neutral-700: #404040;
+        --neutral-800: #262626;
+        --neutral-900: #171717;
+        --neutral-950: #0a0a0a;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        background: var(--neutral-950);
+        color: white;
+        overflow-x: hidden;
+      }
+
+      /* Navigation */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        padding: 1rem 2rem;
+        background: rgba(10, 10, 10, 0.8);
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        transition: all 0.3s ease;
+      }
+
+      nav .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        font-family: "Space Grotesk", sans-serif;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: white;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .logo-icon {
+        width: 40px;
+        height: 40px;
+        background: linear-gradient(135deg, var(--sky-400), var(--sky-600));
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+        list-style: none;
+      }
+
+      .nav-links a {
+        color: var(--neutral-400);
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 500;
+        transition: color 0.3s ease;
+      }
+
+      .nav-links a:hover {
+        color: var(--sky-400);
+      }
+
+      .nav-cta {
+        background: var(--sky-500);
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border-radius: 100px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+      }
+
+      .nav-cta:hover {
+        background: var(--sky-400);
+        transform: translateY(-2px);
+        box-shadow: 0 10px 40px rgba(14, 165, 233, 0.3);
+      }
+
+      .mobile-menu {
+        display: none;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0.5rem;
+      }
+
+      .mobile-menu span {
+        display: block;
+        width: 24px;
+        height: 2px;
+        background: white;
+        margin: 5px 0;
+        transition: all 0.3s ease;
+      }
+
+      /* Hero Section */
+      .hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        padding: 8rem 2rem 4rem;
+        overflow: hidden;
+      }
+
+      .hero-bg {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+            ellipse 80% 50% at 50% -20%,
+            rgba(14, 165, 233, 0.15),
+            transparent
+          ),
+          radial-gradient(
+            ellipse 60% 40% at 80% 60%,
+            rgba(14, 165, 233, 0.08),
+            transparent
+          ),
+          radial-gradient(
+            ellipse 40% 30% at 20% 80%,
+            rgba(56, 189, 248, 0.05),
+            transparent
+          );
+      }
+
+      .hero-grid {
+        position: absolute;
+        inset: 0;
+        background-image: linear-gradient(
+            rgba(255, 255, 255, 0.02) 1px,
+            transparent 1px
+          ),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+        background-size: 60px 60px;
+        mask-image: radial-gradient(
+          ellipse at center,
+          black 30%,
+          transparent 70%
+        );
+      }
+
+      .hero-content {
+        max-width: 900px;
+        text-align: center;
+        position: relative;
+        z-index: 1;
+      }
+
+      .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: rgba(14, 165, 233, 0.1);
+        border: 1px solid rgba(14, 165, 233, 0.3);
+        padding: 0.5rem 1rem;
+        border-radius: 100px;
+        font-size: 0.85rem;
+        color: var(--sky-400);
+        margin-bottom: 2rem;
+        animation: fadeInUp 0.8s ease forwards;
+      }
+
+      .hero-badge::before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        background: var(--sky-400);
+        border-radius: 50%;
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 0.5;
+          transform: scale(1.2);
+        }
+      }
+
+      .hero h1 {
+        font-family: "Space Grotesk", sans-serif;
+        font-size: clamp(2.5rem, 7vw, 4.5rem);
+        font-weight: 700;
+        line-height: 1.1;
+        margin-bottom: 1.5rem;
+        animation: fadeInUp 0.8s ease 0.1s forwards;
+        opacity: 0;
+      }
+
+      .hero h1 span {
+        background: linear-gradient(135deg, var(--sky-400), var(--sky-300));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .hero-subtitle {
+        font-size: clamp(1rem, 2vw, 1.25rem);
+        color: var(--neutral-400);
+        max-width: 600px;
+        margin: 0 auto 2.5rem;
+        line-height: 1.7;
+        animation: fadeInUp 0.8s ease 0.2s forwards;
+        opacity: 0;
+      }
+
+      .hero-ctas {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+        animation: fadeInUp 0.8s ease 0.3s forwards;
+        opacity: 0;
+      }
+
+      .btn-primary {
+        background: var(--sky-500);
+        color: white;
+        padding: 1rem 2rem;
+        border-radius: 100px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 1rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: all 0.3s ease;
+        border: none;
+        cursor: pointer;
+      }
+
+      .btn-primary:hover {
+        background: var(--sky-400);
+        transform: translateY(-3px);
+        box-shadow: 0 20px 40px rgba(14, 165, 233, 0.3);
+      }
+
+      .btn-secondary {
+        background: rgba(255, 255, 255, 0.05);
+        color: white;
+        padding: 1rem 2rem;
+        border-radius: 100px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 1rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .btn-secondary:hover {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.2);
+      }
+
+      /* Phone Mockup */
+      .hero-phone {
+        margin-top: 4rem;
+        animation: fadeInUp 0.8s ease 0.4s forwards,
+          float 6s ease-in-out infinite 1s;
+        opacity: 0;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-20px);
+        }
+      }
+
+      .phone-mockup {
+        width: 300px;
+        height: 620px;
+        background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%);
+        border-radius: 52px;
+        padding: 10px;
+        position: relative;
+        box-shadow: 0 50px 100px rgba(0, 0, 0, 0.6),
+          0 0 0 1px rgba(255, 255, 255, 0.1),
+          inset 0 0 1px 1px rgba(255, 255, 255, 0.05);
+      }
+
+      /* iPhone frame details */
+      .phone-mockup::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        right: -2px;
+        transform: translateY(-50%);
+        width: 3px;
+        height: 80px;
+        background: linear-gradient(180deg, #2a2a2a, #1a1a1a, #2a2a2a);
+        border-radius: 0 2px 2px 0;
+      }
+
+      .phone-mockup::after {
+        content: "";
+        position: absolute;
+        top: 120px;
+        left: -2px;
+        width: 3px;
+        height: 30px;
+        background: linear-gradient(180deg, #2a2a2a, #1a1a1a, #2a2a2a);
+        border-radius: 2px 0 0 2px;
+        box-shadow: 0 50px 0 #1f1f1f, 0 90px 0 #1f1f1f;
+      }
+
+      .phone-frame {
+        width: 100%;
+        height: 100%;
+        background: #000;
+        border-radius: 44px;
+        overflow: hidden;
+        position: relative;
+      }
+
+      /* Dynamic Island */
+      .phone-dynamic-island {
+        position: absolute;
+        top: 12px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 95px;
+        height: 28px;
+        background: #000;
+        border-radius: 20px;
+        z-index: 20;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding-right: 10px;
+      }
+
+      .phone-dynamic-island::before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        background: radial-gradient(circle, #1a1a3e 30%, #0a0a1a 70%);
+        border-radius: 50%;
+        box-shadow: inset 0 0 2px rgba(255, 255, 255, 0.1);
+      }
+
+      /* Status bar */
+      .phone-status-bar {
+        position: absolute;
+        top: 14px;
+        left: 24px;
+        right: 24px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 10;
+        font-size: 0.7rem;
+        font-weight: 600;
+        color: white;
+      }
+
+      .phone-status-time {
+        width: 54px;
+      }
+
+      .phone-status-icons {
+        display: flex;
+        gap: 4px;
+        align-items: center;
+        width: 54px;
+        justify-content: flex-end;
+      }
+
+      .phone-status-icons svg {
+        width: 16px;
+        height: 16px;
+      }
+
+      .phone-screen {
+        width: 100%;
+        height: 100%;
+        background: var(--neutral-900);
+        overflow: hidden;
+        position: relative;
+      }
+
+      .phone-screen-content {
+        padding: 56px 16px 16px;
+        height: 100%;
+        overflow: hidden;
+      }
+
+      /* App Header */
+      .phone-app-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      .phone-header-left {
+      }
+
+      .phone-greeting {
+        font-size: 0.8rem;
+        color: var(--neutral-500);
+        margin-bottom: 2px;
+      }
+
+      .phone-name {
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: white;
+      }
+
+      .phone-avatar {
+        width: 44px;
+        height: 44px;
+        background: var(--sky-500);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: white;
+      }
+
+      /* Invitation Card */
+      .phone-invite-section {
+        margin-bottom: 16px;
+      }
+
+      .phone-invite-title {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: white;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .phone-invite-card {
+        background: rgba(14, 165, 233, 0.1);
+        border: 1px solid var(--sky-500);
+        border-radius: 16px;
+        padding: 12px;
+      }
+
+      .phone-invite-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 10px;
+      }
+
+      .phone-invite-icon {
+        width: 36px;
+        height: 36px;
+        background: var(--sky-500);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.9rem;
+      }
+
+      .phone-invite-info {
+        flex: 1;
+      }
+
+      .phone-invite-name {
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: white;
+      }
+
+      .phone-invite-from {
+        font-size: 0.65rem;
+        color: var(--neutral-500);
+      }
+
+      .phone-invite-badge {
+        background: rgba(14, 165, 233, 0.2);
+        padding: 3px 8px;
+        border-radius: 20px;
+        font-size: 0.55rem;
+        color: var(--sky-400);
+        font-weight: 500;
+      }
+
+      .phone-invite-buttons {
+        display: flex;
+        gap: 8px;
+      }
+
+      .phone-btn-decline {
+        flex: 1;
+        background: var(--neutral-700);
+        border: none;
+        border-radius: 10px;
+        padding: 8px;
+        font-size: 0.7rem;
+        font-weight: 600;
+        color: var(--neutral-300);
+      }
+
+      .phone-btn-accept {
+        flex: 1;
+        background: var(--sky-500);
+        border: none;
+        border-radius: 10px;
+        padding: 8px;
+        font-size: 0.7rem;
+        font-weight: 600;
+        color: white;
+      }
+
+      /* Stats */
+      .phone-stats {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+
+      .phone-stat {
+        flex: 1;
+        padding: 14px;
+        border-radius: 18px;
+      }
+
+      .phone-stat.primary {
+        background: var(--sky-500);
+      }
+
+      .phone-stat.secondary {
+        background: var(--neutral-800);
+      }
+
+      .phone-stat-label {
+        font-size: 0.7rem;
+        opacity: 0.8;
+      }
+
+      .phone-stat.secondary .phone-stat-label {
+        color: var(--neutral-400);
+      }
+
+      .phone-stat-value {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-top: 4px;
+      }
+
+      .phone-stat.secondary .phone-stat-value {
+        color: white;
+      }
+
+      /* Wallets List */
+      .phone-wallets-section {
+        margin-top: 4px;
+      }
+
+      .phone-wallets-title {
+        font-size: 1rem;
+        font-weight: 600;
+        margin-bottom: 12px;
+        color: white;
+      }
+
+      .phone-wallet-item {
+        background: var(--neutral-800);
+        padding: 14px;
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 10px;
+      }
+
+      .phone-wallet-icon {
+        width: 44px;
+        height: 44px;
+        background: var(--sky-500);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1rem;
+      }
+
+      .phone-wallet-info {
+        flex: 1;
+      }
+
+      .phone-wallet-name {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: white;
+      }
+
+      .phone-wallet-members {
+        font-size: 0.7rem;
+        color: var(--neutral-500);
+        margin-top: 2px;
+      }
+
+      .phone-wallet-amount {
+        text-align: right;
+      }
+
+      .phone-wallet-balance {
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: white;
+      }
+
+      .phone-wallet-label {
+        font-size: 0.6rem;
+        color: var(--neutral-500);
+        margin-top: 2px;
+      }
+
+      /* FAB */
+      .phone-fab {
+        position: absolute;
+        bottom: 24px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        background: var(--sky-500);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 20px rgba(14, 165, 233, 0.4);
+      }
+
+      .phone-fab svg {
+        width: 26px;
+        height: 26px;
+        stroke: white;
+        stroke-width: 2.5;
+      }
+
+      /* Home indicator */
+      .phone-home-indicator {
+        position: absolute;
+        bottom: 8px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 120px;
+        height: 4px;
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 4px;
+      }
+
+      /* How it works */
+      .how-it-works {
+        padding: 8rem 2rem;
+        position: relative;
+      }
+
+      .section-container {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .section-header {
+        text-align: center;
+        margin-bottom: 4rem;
+      }
+
+      .section-label {
+        display: inline-block;
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--sky-400);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin-bottom: 1rem;
+      }
+
+      .section-title {
+        font-family: "Space Grotesk", sans-serif;
+        font-size: clamp(2rem, 5vw, 3rem);
+        font-weight: 700;
+        margin-bottom: 1rem;
+      }
+
+      .section-description {
+        color: var(--neutral-400);
+        max-width: 600px;
+        margin: 0 auto;
+        font-size: 1.1rem;
+        line-height: 1.7;
+      }
+
+      .steps-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+      }
+
+      .step-card {
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 24px;
+        padding: 2rem;
+        position: relative;
+        transition: all 0.4s ease;
+      }
+
+      .step-card:hover {
+        background: rgba(255, 255, 255, 0.04);
+        border-color: rgba(14, 165, 233, 0.3);
+        transform: translateY(-5px);
+      }
+
+      .step-number {
+        width: 48px;
+        height: 48px;
+        background: linear-gradient(135deg, var(--sky-500), var(--sky-600));
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Space Grotesk", sans-serif;
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+      }
+
+      .step-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin-bottom: 0.75rem;
+      }
+
+      .step-description {
+        color: var(--neutral-400);
+        line-height: 1.6;
+      }
+
+      .step-icon {
+        position: absolute;
+        top: 2rem;
+        right: 2rem;
+        font-size: 2rem;
+        opacity: 0.5;
+      }
+
+      /* Why Pay & Split */
+      .why-section {
+        padding: 8rem 2rem;
+        background: linear-gradient(
+          180deg,
+          transparent,
+          rgba(14, 165, 233, 0.03),
+          transparent
+        );
+      }
+
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 1.5rem;
+      }
+
+      .feature-card {
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 20px;
+        padding: 2rem;
+        display: flex;
+        gap: 1.5rem;
+        transition: all 0.4s ease;
+      }
+
+      .feature-card:hover {
+        background: rgba(255, 255, 255, 0.04);
+        border-color: rgba(14, 165, 233, 0.2);
+      }
+
+      .feature-icon {
+        width: 56px;
+        height: 56px;
+        background: rgba(14, 165, 233, 0.1);
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        flex-shrink: 0;
+      }
+
+      .feature-content h3 {
+        font-size: 1.1rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+      }
+
+      .feature-content p {
+        color: var(--neutral-400);
+        line-height: 1.6;
+        font-size: 0.95rem;
+      }
+
+      /* CTA Section */
+      .cta-section {
+        padding: 8rem 2rem;
+      }
+
+      .cta-box {
+        max-width: 900px;
+        margin: 0 auto;
+        background: linear-gradient(135deg, var(--sky-600), var(--sky-500));
+        border-radius: 32px;
+        padding: 4rem;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .cta-box::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+            circle at 20% 80%,
+            rgba(255, 255, 255, 0.1),
+            transparent 40%
+          ),
+          radial-gradient(
+            circle at 80% 20%,
+            rgba(255, 255, 255, 0.1),
+            transparent 40%
+          );
+      }
+
+      .cta-box h2 {
+        font-family: "Space Grotesk", sans-serif;
+        font-size: clamp(1.75rem, 4vw, 2.5rem);
+        font-weight: 700;
+        margin-bottom: 1rem;
+        position: relative;
+      }
+
+      .cta-box p {
+        font-size: 1.1rem;
+        opacity: 0.9;
+        margin-bottom: 2rem;
+        position: relative;
+      }
+
+      .cta-box .btn-primary {
+        background: white;
+        color: var(--sky-600);
+      }
+
+      .cta-box .btn-primary:hover {
+        background: var(--neutral-100);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Legal Sections */
+      .legal-sections {
+        padding: 4rem 2rem;
+        background: var(--neutral-950);
+      }
+
+      .legal-container {
+        max-width: 900px;
+        margin: 0 auto;
+      }
+
+      .legal-nav {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 3rem;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .legal-nav-btn {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: var(--neutral-400);
+        padding: 0.75rem 1.5rem;
+        border-radius: 100px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-family: inherit;
+      }
+
+      .legal-nav-btn:hover,
+      .legal-nav-btn.active {
+        background: rgba(14, 165, 233, 0.1);
+        border-color: var(--sky-500);
+        color: var(--sky-400);
+      }
+
+      .legal-content {
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 24px;
+        padding: 3rem;
+      }
+
+      .legal-section {
+        display: none;
+      }
+
+      .legal-section.active {
+        display: block;
+        animation: fadeIn 0.4s ease;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .legal-section h2 {
+        font-family: "Space Grotesk", sans-serif;
+        font-size: 1.75rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        color: var(--sky-400);
+      }
+
+      .legal-section h3 {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin: 2rem 0 1rem;
+        color: white;
+      }
+
+      .legal-section p,
+      .legal-section li {
+        color: var(--neutral-400);
+        line-height: 1.8;
+        margin-bottom: 1rem;
+      }
+
+      .legal-section ul {
+        list-style: none;
+        padding-left: 0;
+      }
+
+      .legal-section ul li {
+        padding-left: 1.5rem;
+        position: relative;
+      }
+
+      .legal-section ul li::before {
+        content: "•";
+        color: var(--sky-500);
+        position: absolute;
+        left: 0;
+      }
+
+      /* Contact Section */
+      .contact-section {
+        padding: 6rem 2rem;
+      }
+
+      .contact-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        max-width: 900px;
+        margin: 0 auto;
+      }
+
+      .contact-card {
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 20px;
+        padding: 2rem;
+        text-align: center;
+        transition: all 0.4s ease;
+      }
+
+      .contact-card:hover {
+        background: rgba(255, 255, 255, 0.04);
+        border-color: rgba(14, 165, 233, 0.3);
+        transform: translateY(-5px);
+      }
+
+      .contact-icon {
+        width: 64px;
+        height: 64px;
+        background: rgba(14, 165, 233, 0.1);
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.75rem;
+        margin: 0 auto 1.5rem;
+      }
+
+      .contact-card h3 {
+        font-size: 1.1rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+      }
+
+      .contact-card p {
+        color: var(--neutral-400);
+        margin-bottom: 1rem;
+      }
+
+      .contact-card a {
+        color: var(--sky-400);
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.3s ease;
+      }
+
+      .contact-card a:hover {
+        color: var(--sky-300);
+      }
+
+      /* Footer */
+      footer {
+        padding: 3rem 2rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+        text-align: center;
+      }
+
+      .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .footer-logo {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-family: "Space Grotesk", sans-serif;
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: white;
+        margin-bottom: 1rem;
+      }
+
+      .footer-links {
+        display: flex;
+        gap: 2rem;
+        justify-content: center;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+      }
+
+      .footer-links a {
+        color: var(--neutral-500);
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: color 0.3s ease;
+      }
+
+      .footer-links a:hover {
+        color: var(--sky-400);
+      }
+
+      .footer-copy {
+        color: var(--neutral-600);
+        font-size: 0.85rem;
+      }
+
+      /* Animations */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .fade-in {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s ease;
+      }
+
+      .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Mobile Styles */
+      @media (max-width: 768px) {
+        nav {
+          padding: 1rem;
+        }
+
+        .nav-links {
+          display: none;
+        }
+
+        .nav-cta {
+          display: none;
+        }
+
+        .mobile-menu {
+          display: block;
+        }
+
+        .hero {
+          padding: 6rem 1rem 4rem;
+        }
+
+        .hero-ctas {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .btn-primary,
+        .btn-secondary {
+          width: 100%;
+          justify-content: center;
+        }
+
+        .phone-mockup {
+          width: 240px;
+          height: 500px;
+        }
+
+        .how-it-works,
+        .why-section {
+          padding: 4rem 1rem;
+        }
+
+        .features-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .feature-card {
+          flex-direction: column;
+          text-align: center;
+        }
+
+        .cta-box {
+          padding: 2.5rem 1.5rem;
+        }
+
+        .legal-content {
+          padding: 1.5rem;
+        }
+
+        .legal-nav {
+          gap: 0.5rem;
+        }
+
+        .legal-nav-btn {
+          padding: 0.5rem 1rem;
+          font-size: 0.8rem;
+        }
+      }
+
+      /* Scroll indicator */
+      .scroll-indicator {
+        position: absolute;
+        bottom: 2rem;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        animation: fadeInUp 0.8s ease 0.5s forwards;
+        opacity: 0;
+      }
+
+      .scroll-indicator span {
+        font-size: 0.75rem;
+        color: var(--neutral-500);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+
+      .scroll-indicator .arrow {
+        width: 24px;
+        height: 24px;
+        border-right: 2px solid var(--neutral-500);
+        border-bottom: 2px solid var(--neutral-500);
+        transform: rotate(45deg);
+        animation: bounce 2s infinite;
+      }
+
+      @keyframes bounce {
+        0%,
+        20%,
+        50%,
+        80%,
+        100% {
+          transform: rotate(45deg) translateY(0);
+        }
+        40% {
+          transform: rotate(45deg) translateY(10px);
+        }
+        60% {
+          transform: rotate(45deg) translateY(5px);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav>
+      <div class="container">
+        <a href="#" class="logo">
+          <div class="logo-icon">💳</div>
+          Pay & Split
+        </a>
+        <ul class="nav-links">
+          <li><a href="#how-it-works">Comment ça marche</a></li>
+          <li><a href="#why">Pourquoi nous</a></li>
+          <li><a href="#legal">Légal</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <a href="#download" class="nav-cta">Télécharger</a>
+        <button class="mobile-menu" aria-label="Menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-grid"></div>
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span>Nouveau</span> La fin des galères de remboursement
+        </div>
+        <h1>
+          Des moments partagés,<br />
+          <span>un seul paiement</span>
+        </h1>
+        <p class="hero-subtitle">
+          Pay & Split est l'application fintech qui révolutionne les dépenses en
+          groupe. Créez un portefeuille commun, payez ensemble, et oubliez les
+          calculs compliqués et les tensions liées aux remboursements.
+        </p>
+        <div class="hero-ctas">
+          <a href="#download" class="btn-primary">
+            <span>📱</span> Télécharger l'app
+          </a>
+          <a href="#how-it-works" class="btn-secondary">
+            <span>▶</span> Découvrir
+          </a>
+        </div>
+
+        <!-- Phone Mockup -->
+        <div class="hero-phone">
+          <div class="phone-mockup">
+            <div class="phone-frame">
+              <div class="phone-dynamic-island"></div>
+              <div class="phone-status-bar">
+                <span class="phone-status-time">9:41</span>
+                <div class="phone-status-icons">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path
+                      d="M2 16.5C2 14.014 4.014 12 6.5 12H8V20H6.5C4.014 20 2 17.986 2 16.5Z"
+                      fill="white"
+                    />
+                    <path
+                      d="M10 10C10 8.343 11.343 7 13 7H14V20H13C11.343 20 10 18.657 10 17V10Z"
+                      fill="white"
+                    />
+                    <path
+                      d="M16 6C16 4.895 16.895 4 18 4H19V20H18C16.895 20 16 19.105 16 18V6Z"
+                      fill="white"
+                    />
+                  </svg>
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path
+                      d="M12 5C8.5 5 5.5 7.5 4 9.5L12 19L20 9.5C18.5 7.5 15.5 5 12 5Z"
+                      fill="white"
+                    />
+                  </svg>
+                  <svg viewBox="0 0 28 14" fill="none">
+                    <rect
+                      x="0.5"
+                      y="0.5"
+                      width="23"
+                      height="13"
+                      rx="3"
+                      stroke="white"
+                      stroke-opacity="0.5"
+                    />
+                    <rect
+                      x="2"
+                      y="2"
+                      width="18"
+                      height="10"
+                      rx="2"
+                      fill="white"
+                    />
+                    <path
+                      d="M25 5V9C26.1 8.5 26.1 5.5 25 5Z"
+                      fill="white"
+                      fill-opacity="0.5"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div class="phone-screen">
+                <div class="phone-screen-content">
+                  <!-- App Header -->
+                  <div class="phone-app-header">
+                    <div class="phone-header-left">
+                      <div class="phone-greeting">Bonjour 👋</div>
+                      <div class="phone-name">Marie</div>
+                    </div>
+                    <div class="phone-avatar">M</div>
+                  </div>
+
+                  <!-- Invitation -->
+                  <div class="phone-invite-section">
+                    <div class="phone-invite-title">📩 Invitations (1)</div>
+                    <div class="phone-invite-card">
+                      <div class="phone-invite-header">
+                        <div class="phone-invite-icon">💼</div>
+                        <div class="phone-invite-info">
+                          <div class="phone-invite-name">Week-end ski</div>
+                          <div class="phone-invite-from">Invité par Thomas</div>
+                        </div>
+                        <div class="phone-invite-badge">Membre</div>
+                      </div>
+                      <div class="phone-invite-buttons">
+                        <button class="phone-btn-decline">Refuser</button>
+                        <button class="phone-btn-accept">Rejoindre</button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Stats -->
+                  <div class="phone-stats">
+                    <div class="phone-stat primary">
+                      <div class="phone-stat-label">Portefeuilles</div>
+                      <div class="phone-stat-value">3</div>
+                    </div>
+                    <div class="phone-stat secondary">
+                      <div class="phone-stat-label">Mon total</div>
+                      <div class="phone-stat-value">245.50€</div>
+                    </div>
+                  </div>
+
+                  <!-- Wallets -->
+                  <div class="phone-wallets-section">
+                    <div class="phone-wallets-title">Mes portefeuilles</div>
+                    <div class="phone-wallet-item">
+                      <div class="phone-wallet-icon">🏠</div>
+                      <div class="phone-wallet-info">
+                        <div class="phone-wallet-name">Coloc Voltaire</div>
+                        <div class="phone-wallet-members">4 participants</div>
+                      </div>
+                      <div class="phone-wallet-amount">
+                        <div class="phone-wallet-balance">125.00€</div>
+                        <div class="phone-wallet-label">Mon solde</div>
+                      </div>
+                    </div>
+                    <div class="phone-wallet-item">
+                      <div class="phone-wallet-icon">🎉</div>
+                      <div class="phone-wallet-info">
+                        <div class="phone-wallet-name">Barcelone</div>
+                        <div class="phone-wallet-members">6 participants</div>
+                      </div>
+                      <div class="phone-wallet-amount">
+                        <div class="phone-wallet-balance">120.50€</div>
+                        <div class="phone-wallet-label">Mon solde</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- FAB -->
+                <div class="phone-fab">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path
+                      d="M12 5V19M5 12H19"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                    />
+                  </svg>
+                </div>
+
+                <!-- Home Indicator -->
+                <div class="phone-home-indicator"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="scroll-indicator">
+        <span>Scroll</span>
+        <div class="arrow"></div>
+      </div>
+    </section>
+
+    <!-- How it Works -->
+    <section class="how-it-works" id="how-it-works">
+      <div class="section-container">
+        <div class="section-header fade-in">
+          <span class="section-label">Comment ça fonctionne</span>
+          <p class="section-description">
+            Plus besoin de sortir la calculatrice ou de courir après les
+            remboursements. Pay & Split automatise tout pour vous.
+          </p>
+        </div>
+
+        <div class="steps-grid">
+          <div class="step-card fade-in">
+            <div class="step-number">1</div>
+            <span class="step-icon">📝</span>
+            <h3 class="step-title">Créez un portefeuille</h3>
+            <p class="step-description">
+              Donnez un nom à votre groupe (coloc, voyage, soirée...) et invitez
+              vos amis en quelques secondes.
+            </p>
+          </div>
+
+          <div class="step-card fade-in">
+            <div class="step-number">2</div>
+            <span class="step-icon">💰</span>
+            <h3 class="step-title">Alimentez ensemble</h3>
+            <p class="step-description">
+              Chaque participant contribue selon ses moyens. Le solde de chacun
+              est visible en temps réel.
+            </p>
+          </div>
+
+          <div class="step-card fade-in">
+            <div class="step-number">3</div>
+            <span class="step-icon">✨</span>
+            <h3 class="step-title">Payez et c'est fini</h3>
+            <p class="step-description">
+              Un seul paiement pour le groupe, répartition automatique. Plus de
+              tensions, plus de "tu me dois 12,73€".
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Pay & Split -->
+    <section class="why-section" id="why">
+      <div class="section-container">
+        <div class="section-header fade-in">
+          <span class="section-label">Pourquoi Pay & Split</span>
+          <h2 class="section-title">La solution qui change tout</h2>
+          <p class="section-description">
+            Fini les avances d'argent, les calculs manuels et les rappels
+            gênants. Profitez de vos moments entre amis, on s'occupe du reste.
+          </p>
+        </div>
+
+        <div class="features-grid">
+          <div class="feature-card fade-in">
+            <div class="feature-icon">🚫</div>
+            <div class="feature-content">
+              <h3>Zéro avance d'argent</h3>
+              <p>
+                Plus besoin qu'une seule personne paye pour tout le monde. Tout
+                le monde contribue avant la dépense.
+              </p>
+            </div>
+          </div>
+
+          <div class="feature-card fade-in">
+            <div class="feature-icon">⚡</div>
+            <div class="feature-content">
+              <h3>Calculs automatiques</h3>
+              <p>
+                La répartition se fait en temps réel. Chacun sait exactement
+                combien il a mis et combien il reste.
+              </p>
+            </div>
+          </div>
+
+          <div class="feature-card fade-in">
+            <div class="feature-icon">🤝</div>
+            <div class="feature-content">
+              <h3>Zéro tension</h3>
+              <p>
+                Plus de messages gênants pour réclamer l'argent. Tout est clair
+                et transparent dès le départ.
+              </p>
+            </div>
+          </div>
+
+          <div class="feature-card fade-in">
+            <div class="feature-icon">📊</div>
+            <div class="feature-content">
+              <h3>Suivi en temps réel</h3>
+              <p>
+                Visualisez l'état du portefeuille, les contributions de chacun
+                et l'historique des dépenses.
+              </p>
+            </div>
+          </div>
+
+          <div class="feature-card fade-in">
+            <div class="feature-icon">🔒</div>
+            <div class="feature-content">
+              <h3>Sécurisé & fiable</h3>
+              <p>
+                Vos données et transactions sont protégées. Infrastructure
+                bancaire de confiance.
+              </p>
+            </div>
+          </div>
+
+          <div class="feature-card fade-in">
+            <div class="feature-icon">💬</div>
+            <div class="feature-content">
+              <h3>Invitations faciles</h3>
+              <p>
+                Invitez vos amis par lien, email ou SMS. Ils peuvent rejoindre
+                le groupe en un clic.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" id="download">
+      <div class="cta-box fade-in">
+        <h2>Prêt à simplifier vos dépenses ?</h2>
+        <p>
+          Rejoignez des milliers d'utilisateurs qui ont dit adieu aux galères de
+          remboursement.
+        </p>
+        <a href="#" class="btn-primary">
+          <span>📱</span> Télécharger gratuitement
+        </a>
+      </div>
+    </section>
+
+    <!-- Legal Sections -->
+    <section class="legal-sections" id="legal">
+      <div class="legal-container">
+        <div class="section-header fade-in">
+          <span class="section-label">Informations légales</span>
+          <h2 class="section-title">Transparence & confiance</h2>
+        </div>
+
+        <div class="legal-nav fade-in">
+          <button class="legal-nav-btn active" data-target="mentions">
+            Mentions légales
+          </button>
+          <button class="legal-nav-btn" data-target="privacy">
+            Confidentialité
+          </button>
+          <button class="legal-nav-btn" data-target="terms">CGU</button>
+        </div>
+
+        <div class="legal-content fade-in">
+          <!-- Mentions Légales -->
+          <div class="legal-section active" id="mentions">
+            <h2>Mentions Légales</h2>
+
+            <h3>Éditeur</h3>
+            <p>
+              Pay & Split<br />
+              Adresse : M L. Uytroever 4 1081 koekelberg Belgique<br />
+              Email : paysplit@proton.me
+            </p>
+
+            <h3>Description du service</h3>
+            <p>
+              Pay & Split est une application mobile permettant la gestion de
+              dépenses partagées entre particuliers. Le service permet aux
+              utilisateurs de créer des portefeuilles communs, d'y contribuer
+              financièrement, et de gérer les paiements groupés avec une
+              répartition automatique entre les participants.
+            </p>
+
+            <h3>Hébergement</h3>
+            <p>
+              L'application est hébergée par des prestataires cloud conformes
+              aux normes de sécurité européennes.
+            </p>
+
+            <h3>Propriété intellectuelle</h3>
+            <p>
+              L'ensemble des contenus présents sur l'application Pay & Split
+              (textes, images, logos, interface) sont la propriété exclusive de
+              Pay & Split. Toute reproduction non autorisée est interdite.
+            </p>
+          </div>
+
+          <!-- Politique de confidentialité -->
+          <div class="legal-section" id="privacy">
+            <h2>Politique de Confidentialité</h2>
+            <p><em>Dernière mise à jour : Janvier 2026</em></p>
+
+            <h3>Responsable du traitement</h3>
+            <p>
+              Pay & Split est responsable du traitement de vos données
+              personnelles. Pour toute question : privacy@paysplit.be
+            </p>
+
+            <h3>Données collectées</h3>
+            <p>Nous collectons les données suivantes :</p>
+            <ul>
+              <li>
+                <strong>Données d'identification :</strong> nom, prénom, adresse
+                email
+              </li>
+              <li>
+                <strong>Données de paiement :</strong> traitées de manière
+                sécurisée par notre prestataire Stripe (nous ne stockons pas vos
+                données bancaires)
+              </li>
+              <li>
+                <strong>Données d'utilisation :</strong> historique des
+                transactions, portefeuilles créés, contributions
+              </li>
+              <li>
+                <strong>Données techniques :</strong> type d'appareil, système
+                d'exploitation, adresse IP
+              </li>
+            </ul>
+
+            <h3>Finalités du traitement</h3>
+            <ul>
+              <li>Création et gestion de votre compte utilisateur</li>
+              <li>
+                Exécution des transactions et gestion des portefeuilles partagés
+              </li>
+              <li>Sécurité et prévention de la fraude</li>
+              <li>Amélioration de nos services</li>
+              <li>Respect de nos obligations légales</li>
+            </ul>
+
+            <h3>Base légale</h3>
+            <p>
+              Le traitement de vos données repose sur l'exécution du contrat
+              (utilisation du service), votre consentement, nos obligations
+              légales et notre intérêt légitime (sécurité, amélioration du
+              service).
+            </p>
+
+            <h3>Partage des données</h3>
+            <p>Vos données peuvent être partagées avec :</p>
+            <ul>
+              <li>
+                <strong>Stripe :</strong> notre prestataire de paiement, pour le
+                traitement sécurisé des transactions
+              </li>
+              <li>
+                <strong>Les autres membres</strong> de vos portefeuilles
+                partagés (nom, contributions)
+              </li>
+              <li>
+                <strong>Autorités compétentes</strong> si requis par la loi
+              </li>
+            </ul>
+
+            <h3>Conservation des données</h3>
+            <p>
+              Vos données sont conservées pendant la durée de votre utilisation
+              du service, puis archivées pendant 5 ans conformément aux
+              obligations légales relatives aux transactions financières.
+            </p>
+
+            <h3>Sécurité</h3>
+            <p>
+              Nous mettons en œuvre des mesures techniques et organisationnelles
+              appropriées pour protéger vos données : chiffrement, accès
+              restreint, audits de sécurité réguliers.
+            </p>
+
+            <h3>Vos droits (RGPD)</h3>
+            <p>
+              Conformément au Règlement Général sur la Protection des Données,
+              vous disposez des droits suivants :
+            </p>
+            <ul>
+              <li>Droit d'accès à vos données</li>
+              <li>Droit de rectification</li>
+              <li>Droit à l'effacement</li>
+              <li>Droit à la limitation du traitement</li>
+              <li>Droit à la portabilité</li>
+              <li>Droit d'opposition</li>
+            </ul>
+            <p>
+              Pour exercer ces droits :
+              <a href="mailto:privacy@paysplit.be">privacy@paysplit.be</a><br />
+              Vous pouvez également introduire une réclamation auprès de la CNIL
+              (cnil.fr).
+            </p>
+          </div>
+
+          <!-- Conditions d'utilisation -->
+          <div class="legal-section" id="terms">
+            <h2>Conditions Générales d'Utilisation</h2>
+            <p><em>Dernière mise à jour : Janvier 2026</em></p>
+
+            <h3>1. Objet</h3>
+            <p>
+              Les présentes Conditions Générales d'Utilisation (CGU) régissent
+              l'utilisation de l'application Pay & Split et des services
+              associés. En utilisant l'application, vous acceptez ces
+              conditions.
+            </p>
+
+            <h3>2. Description du service</h3>
+            <p>
+              Pay & Split est un service de gestion de dépenses partagées
+              permettant à des groupes d'utilisateurs de :
+            </p>
+            <ul>
+              <li>Créer des portefeuilles partagés</li>
+              <li>Inviter des participants</li>
+              <li>Effectuer des contributions au portefeuille commun</li>
+              <li>Gérer les paiements groupés avec répartition automatique</li>
+            </ul>
+
+            <h3>3. Inscription</h3>
+            <p>
+              L'utilisation de Pay & Split nécessite la création d'un compte.
+              Vous vous engagez à fournir des informations exactes et à jour.
+              Vous êtes responsable de la confidentialité de vos identifiants.
+            </p>
+
+            <h3>4. Tarification</h3>
+            <p>
+              L'inscription et l'utilisation de base de Pay & Split sont
+              gratuites. Des frais peuvent s'appliquer sur certaines
+              transactions, clairement indiqués avant validation.
+            </p>
+
+            <h3>5. Paiements et remboursements</h3>
+            <p>
+              Les paiements sont traités de manière sécurisée par Stripe. Les
+              fonds versés dans un portefeuille sont destinés aux dépenses du
+              groupe.
+            </p>
+            <p><strong>Politique de remboursement :</strong></p>
+            <ul>
+              <li>
+                Les contributions à un portefeuille peuvent être retirées tant
+                qu'elles n'ont pas été utilisées pour une dépense
+              </li>
+              <li>
+                En cas de litige entre membres d'un portefeuille, Pay & Split
+                peut intervenir en médiation mais n'est pas responsable des
+                désaccords entre utilisateurs
+              </li>
+              <li>
+                Pour toute demande de remboursement :
+                <a href="mailto:support@paysplit.be">support@paysplit.be</a>
+              </li>
+              <li>Les demandes sont traitées sous 5 jours ouvrés</li>
+            </ul>
+
+            <h3>6. Responsabilités de l'utilisateur</h3>
+            <p>Vous vous engagez à :</p>
+            <ul>
+              <li>
+                Utiliser le service de manière licite et conforme aux présentes
+                CGU
+              </li>
+              <li>
+                Ne pas utiliser le service à des fins frauduleuses ou de
+                blanchiment d'argent
+              </li>
+              <li>Respecter les autres utilisateurs</li>
+            </ul>
+
+            <h3>7. Responsabilités de Pay & Split</h3>
+            <p>
+              Pay & Split s'engage à fournir un service fiable et sécurisé. Nous
+              ne sommes pas responsables :
+            </p>
+            <ul>
+              <li>
+                Des litiges entre utilisateurs concernant la répartition des
+                dépenses
+              </li>
+              <li>
+                Des interruptions de service indépendantes de notre volonté
+              </li>
+              <li>
+                De l'utilisation frauduleuse de votre compte par un tiers si
+                vous n'avez pas protégé vos identifiants
+              </li>
+            </ul>
+
+            <h3>8. Résiliation</h3>
+            <p>
+              Vous pouvez supprimer votre compte à tout moment depuis
+              l'application ou en contactant support@paysplit.be. Pay & Split
+              peut suspendre ou résilier votre compte en cas de violation des
+              présentes CGU.
+            </p>
+
+            <h3>9. Modification des CGU</h3>
+            <p>
+              Pay & Split se réserve le droit de modifier ces CGU. Les
+              utilisateurs seront informés de toute modification substantielle
+              par email ou notification dans l'application.
+            </p>
+
+            <h3>10. Contact</h3>
+            <p>
+              Pour toute question concernant ces CGU :<br />
+              Email :
+              <a href="mailto:paysplit@proton.me">paysplit@proton.me</a>
+            </p>
+
+            <h3>11. Droit applicable</h3>
+            <p>
+              Les présentes CGU sont régies par le droit français. Tout litige
+              sera soumis à la compétence des tribunaux français.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+      <div class="section-container">
+        <div class="section-header fade-in">
+          <span class="section-label">Contact</span>
+          <h2 class="section-title">Une question ? Parlons-en</h2>
+          <p class="section-description">
+            Notre équipe est là pour vous aider. N'hésitez pas à nous contacter.
+          </p>
+        </div>
+
+        <div class="contact-grid">
+          <div class="contact-card fade-in">
+            <div class="contact-icon">📧</div>
+            <h3>Email</h3>
+            <p>Pour toute question générale</p>
+            <a href="mailto:paysplit@proton.me">paysplit@proton.me</a>
+          </div>
+
+          <div class="contact-card fade-in">
+            <div class="contact-icon">🤝</div>
+            <h3>Partenariats</h3>
+            <p>Opportunités business</p>
+            <a href="mailto:partners@paysplit.be">partners@paysplit.be</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-content">
+        <div class="footer-logo">
+          <div
+            class="logo-icon"
+            style="width: 32px; height: 32px; font-size: 1rem"
+          >
+            💳
+          </div>
+          Pay & Split
+        </div>
+        <div class="footer-links">
+          <a href="#how-it-works">Comment ça marche</a>
+          <a href="#why">Pourquoi nous</a>
+          <a href="#legal">Mentions légales</a>
+          <a href="#contact">Contact</a>
+        </div>
+        <p class="footer-copy">© 2026 Pay & Split. Tous droits réservés.</p>
+      </div>
+    </footer>
+
+    <script>
+      // Scroll animations
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll(".fade-in").forEach((el) => {
+        observer.observe(el);
+      });
+
+      // Legal tabs
+      const legalBtns = document.querySelectorAll(".legal-nav-btn");
+      const legalSections = document.querySelectorAll(".legal-section");
+
+      legalBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const target = btn.dataset.target;
+
+          legalBtns.forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+
+          legalSections.forEach((section) => {
+            section.classList.remove("active");
+            if (section.id === target) {
+              section.classList.add("active");
+            }
+          });
+        });
+      });
+
+      // Smooth scroll for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }
+        });
+      });
+
+      // Navbar background on scroll
+      const nav = document.querySelector("nav");
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 100) {
+          nav.style.background = "rgba(10, 10, 10, 0.95)";
+        } else {
+          nav.style.background = "rgba(10, 10, 10, 0.8)";
+        }
+      });
+    </script>
+  </body>
+</html>
